@@ -1,3 +1,2 @@
-sys
-time
-jsonpaho-mqtt
+json
+paho-mqtt
