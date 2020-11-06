@@ -4,24 +4,6 @@ import json
 
 import paho.mqtt.client as mqtt
 
-import kivy as kivy
-kivy.require('1.0.6')
-from kivy.app import App
-from kivy.uix.tabbedpanel import TabbedPanel
-from kivy.properties import StringProperty
-from kivy.uix.screenmanager import Screen, ScreenManager, SlideTransition
-from kivy.clock import Clock
-from kivy.lang import Builder
-from kivy.gesture import GestureDatabase
-from kivy.uix.boxlayout import BoxLayout
-from kivy.gesture import Gesture 
-from kivy.uix.widget import Widget
-from kivy.uix.label import Label
-from kivy.config import Config
-Config.set('graphics', 'resizable', 'true')
-Config.set('graphics', 'width', '500')
-Config.set('graphics', 'height', '500')
-
 
 THE_BROKER = "eu.thethings.network"
 THE_TOPIC = "+/devices/+/up"
@@ -67,21 +49,10 @@ def on_message(client, userdata, msg):
 	else:
 	  currentmsg = json.loads(msg.payload.decode("utf-8"))
 
-
-class DataVisualizer(App):
-	
-	def build(self):
-		#return Label(text='Hello world')
-		Config.write()
-		return Label(text='Hello world')
-		
-		
-
 client = mqtt.Client()
 
 # Let's see if you inserted the required data
 if __name__ == '__main__':
-	print("starting")
 	if TTN_USERNAME == 'VOID':
 		print("You must set the values of your app and device first!!")
 		sys.exit()
@@ -92,7 +63,6 @@ if __name__ == '__main__':
 		client.on_message = on_message
 		
 		client.connect(THE_BROKER, 1883, 60)
-		DataVisualizer().run()
 				
 		client.loop_forever()
 
